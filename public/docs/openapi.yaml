@@ -1,0 +1,2192 @@
+openapi: 3.0.3
+info:
+  title: Tweetr API Documentation
+  description: ''
+  version: 1.0.0
+servers:
+  - url: 'http://127.0.0.1:3333'
+paths:
+  /signup:
+    post:
+      summary: Handles user signup
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                  message: >-
+                    There was a problem creating the user, please try again
+                    later.
+                properties: {}
+      tags:
+        - Endpoints
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: ea
+                username:
+                  type: string
+                  description: ''
+                  example: officia
+                email:
+                  type: string
+                  description: ''
+                  example: vitae
+                password:
+                  type: string
+                  description: ''
+                  example: reiciendis
+              required:
+                - username
+                - email
+                - password
+        required: true
+      security: []
+  /login:
+    post:
+      summary: Handles user authentication
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  data: YOUR_TOKEN
+                properties: {}
+      tags:
+        - Endpoints
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: ''
+                  example: molestiae
+                password:
+                  type: string
+                  description: ''
+                  example: quasi
+              required:
+                - email
+                - password
+        required: true
+      security: []
+  /account/me:
+    get:
+      summary: Get details of the currently authenticated user
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer Vga81Pb6f4Eh6ek35vZcaDd
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 242
+                        column: 7
+                        context:
+                          start: 237
+                          pre: |2-
+                                /**
+                                 * Don't bother when request does not have body
+                                 */
+                                if (!request.hasBody()) {
+                                  debug('skipping body parsing, since request body is empty')
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is multipart/form-data and autoProcess is set to
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  /account/update_profile:
+    put:
+      summary: Update user profile
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer 4ebV1kDg3hvdPa56Zc8E6af
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: internal/process/task_queues.js
+                        filePath: internal/process/task_queues.js
+                        method: processTicksAndRejections
+                        line: 93
+                        column: 5
+                        context: {}
+                        isModule: false
+                        isNative: true
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 284
+                        column: 7
+                        context:
+                          start: 279
+                          pre: |2
+                                  const { parsed, raw } = await this._parseJSON(request.request)
+
+                                  request.body = parsed
+                                  request._raw = raw
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is Url encoded form, so parse it and move forward
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  /account/change_password:
+    put:
+      summary: Change user password
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer c4bDVaZ8dgk13E65Paefhv6
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: internal/process/task_queues.js
+                        filePath: internal/process/task_queues.js
+                        method: processTicksAndRejections
+                        line: 93
+                        column: 5
+                        context: {}
+                        isModule: false
+                        isNative: true
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 284
+                        column: 7
+                        context:
+                          start: 279
+                          pre: |2
+                                  const { parsed, raw } = await this._parseJSON(request.request)
+
+                                  request.body = parsed
+                                  request._raw = raw
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is Url encoded form, so parse it and move forward
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  /users/timeline:
+    get:
+      summary: Fetch user and followers tweets
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer ka4c56861Dde3gfahbEPVZv
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 242
+                        column: 7
+                        context:
+                          start: 237
+                          pre: |2-
+                                /**
+                                 * Don't bother when request does not have body
+                                 */
+                                if (!request.hasBody()) {
+                                  debug('skipping body parsing, since request body is empty')
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is multipart/form-data and autoProcess is set to
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  /users/users_to_follow:
+    get:
+      summary: Users to follow
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer h6kb3ada5DeV41f68EcPZvg
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 242
+                        column: 7
+                        context:
+                          start: 237
+                          pre: |2-
+                                /**
+                                 * Don't bother when request does not have body
+                                 */
+                                if (!request.hasBody()) {
+                                  debug('skipping body parsing, since request body is empty')
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is multipart/form-data and autoProcess is set to
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  /users/follow:
+    post:
+      summary: Follow a user
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer veDVfhPkE8caba16d365gZ4
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: internal/process/task_queues.js
+                        filePath: internal/process/task_queues.js
+                        method: processTicksAndRejections
+                        line: 93
+                        column: 5
+                        context: {}
+                        isModule: false
+                        isNative: true
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 284
+                        column: 7
+                        context:
+                          start: 279
+                          pre: |2
+                                  const { parsed, raw } = await this._parseJSON(request.request)
+
+                                  request.body = parsed
+                                  request._raw = raw
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is Url encoded form, so parse it and move forward
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  '/users/unfollow/:id':
+    delete:
+      summary: Unfollow a user
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer 4k6vbcVa38hgaDeP6fdE51Z
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: internal/process/task_queues.js
+                        filePath: internal/process/task_queues.js
+                        method: processTicksAndRejections
+                        line: 93
+                        column: 5
+                        context: {}
+                        isModule: false
+                        isNative: true
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 242
+                        column: 7
+                        context:
+                          start: 237
+                          pre: |2-
+                                /**
+                                 * Don't bother when request does not have body
+                                 */
+                                if (!request.hasBody()) {
+                                  debug('skipping body parsing, since request body is empty')
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is multipart/form-data and autoProcess is set to
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  /tweet:
+    post:
+      summary: Post a tweet
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer 686fEaa4PZgehdvDc53bk1V
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: internal/process/task_queues.js
+                        filePath: internal/process/task_queues.js
+                        method: processTicksAndRejections
+                        line: 93
+                        column: 5
+                        context: {}
+                        isModule: false
+                        isNative: true
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 284
+                        column: 7
+                        context:
+                          start: 279
+                          pre: |2
+                                  const { parsed, raw } = await this._parseJSON(request.request)
+
+                                  request.body = parsed
+                                  request._raw = raw
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is Url encoded form, so parse it and move forward
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  '/tweets/:id':
+    get:
+      summary: Fetch a tweet
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer 8a5dvePk63DaV6hZbE4gcf1
+          schema:
+            type: string
+      responses:
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                  message: Tweet not found
+                properties: {}
+      tags:
+        - Endpoints
+  '/tweets/reply/:id':
+    post:
+      summary: Reply a tweet
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer 6f8adbZPcvk3ha16Eg4DeV5
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: internal/process/task_queues.js
+                        filePath: internal/process/task_queues.js
+                        method: processTicksAndRejections
+                        line: 93
+                        column: 5
+                        context: {}
+                        isModule: false
+                        isNative: true
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 284
+                        column: 7
+                        context:
+                          start: 279
+                          pre: |2
+                                  const { parsed, raw } = await this._parseJSON(request.request)
+
+                                  request.body = parsed
+                                  request._raw = raw
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is Url encoded form, so parse it and move forward
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  '/tweets/destroy/:id':
+    delete:
+      summary: Delete a tweet
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer ZcaEe68a5dvhP1Df3V4g6kb
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: internal/process/task_queues.js
+                        filePath: internal/process/task_queues.js
+                        method: processTicksAndRejections
+                        line: 93
+                        column: 5
+                        context: {}
+                        isModule: false
+                        isNative: true
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 242
+                        column: 7
+                        context:
+                          start: 237
+                          pre: |2-
+                                /**
+                                 * Don't bother when request does not have body
+                                 */
+                                if (!request.hasBody()) {
+                                  debug('skipping body parsing, since request body is empty')
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is multipart/form-data and autoProcess is set to
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  /favorites/create:
+    post:
+      summary: Favorite a specified tweet
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer VvDegh8abP1Zc6a3f6kd45E
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: internal/process/task_queues.js
+                        filePath: internal/process/task_queues.js
+                        method: processTicksAndRejections
+                        line: 93
+                        column: 5
+                        context: {}
+                        isModule: false
+                        isNative: true
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 284
+                        column: 7
+                        context:
+                          start: 279
+                          pre: |2
+                                  const { parsed, raw } = await this._parseJSON(request.request)
+
+                                  request.body = parsed
+                                  request._raw = raw
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is Url encoded form, so parse it and move forward
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  '/favorites/destroy/:id':
+    delete:
+      summary: Unfavorite a specified tweet
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer kEdPb6843h5fDaeVa6Zvgc1
+          schema:
+            type: string
+      responses:
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error:
+                    message: 'E_INVALID_JWT_TOKEN: jwt malformed'
+                    name: InvalidJwtToken
+                    status: 401
+                    frames:
+                      - file: node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Exceptions\index.js
+                        method: Function.invoke
+                        line: 222
+                        column: 12
+                        context:
+                          start: 217
+                          pre: |2-
+                             *
+                             * @class InvalidJwtToken
+                             */
+                            class InvalidJwtToken extends GE.LogicalException {
+                              static invoke (message) {
+                          line: '    return new this(message || ''The Jwt token is invalid'', 401, ''E_INVALID_JWT_TOKEN'')'
+                          post: |2-
+                              }
+                            }
+
+                            /**
+                             * This exception is raised when jwt refresh token is
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Schemes\Jwt.js
+                        method: JwtScheme.check
+                        line: 402
+                        column: 32
+                        context:
+                          start: 397
+                          pre: |2-
+                                  this.jwtPayload = await this._verifyToken(token)
+                                } catch ({ name, message }) {
+                                  if (name === 'TokenExpiredError') {
+                                    throw CE.ExpiredJwtToken.invoke()
+                                  }
+                          line: '      throw CE.InvalidJwtToken.invoke(message)'
+                          post: |2-
+                                }
+
+                                this.user = await this._serializerInstance.findById(this.jwtPayload.uid)
+
+                                /**
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: internal/process/task_queues.js
+                        filePath: internal/process/task_queues.js
+                        method: processTicksAndRejections
+                        line: 93
+                        column: 5
+                        context: {}
+                        isModule: false
+                        isNative: true
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth._authenticate
+                        line: 67
+                        column: 9
+                        context:
+                          start: 62
+                          pre: |2-
+                                 * via anyone
+                                 */
+                                for (const scheme of schemes) {
+                                  try {
+                                    const authenticator = auth.authenticator(scheme)
+                          line: '        await authenticator.check()'
+                          post: |2-
+
+                                    debug('authenticated using %s scheme', scheme)
+
+                                    /**
+                                     * Swapping the main authentication instance with the one using which user
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\auth\src\Middleware\Auth.js
+                        method: async Auth.handle
+                        line: 109
+                        column: 5
+                        context:
+                          start: 104
+                          pre: |2-
+                               *                             If no scheme is defined, then default scheme from config is used.
+                               *
+                               * @return {void}
+                               */
+                              async handle ({ auth, view }, next, schemes) {
+                          line: '    await this._authenticate(auth, schemes)'
+                          post: |2-
+
+                                /**
+                                 * For compatibility with the old API
+                                 */
+                                auth.current = auth.authenticatorInstance
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                      - file: >-
+                          node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        filePath: >-
+                          C:\Users\shalvah\Projects\Temp\tweetr-api\node_modules\@adonisjs\bodyparser\src\BodyParser\index.js
+                        method: async BodyParser.handle
+                        line: 242
+                        column: 7
+                        context:
+                          start: 237
+                          pre: |2-
+                                /**
+                                 * Don't bother when request does not have body
+                                 */
+                                if (!request.hasBody()) {
+                                  debug('skipping body parsing, since request body is empty')
+                          line: '      await next()'
+                          post: |2-
+                                  return
+                                }
+
+                                /**
+                                 * Body is multipart/form-data and autoProcess is set to
+                        isModule: true
+                        isNative: false
+                        isApp: false
+                properties: {}
+      tags:
+        - Endpoints
+  '/:username':
+    get:
+      summary: Show user profile
+      description: ''
+      parameters:
+        - in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          description: ''
+          example: Bearer Z3aPcfEDde4a815g6Vv6bhk
+          schema:
+            type: string
+      responses:
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: error
+                  message: User not found
+                properties: {}
+      tags:
+        - Endpoints
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: ''
+security:
+  - default: []

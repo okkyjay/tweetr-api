@@ -8,6 +8,12 @@ class UserController {
   /**
    * Handles user signup
    *
+   * @unauthenticated
+   * @bodyParam {string} name
+   * @bodyParam {string} username required
+   * @bodyParam {string} email required
+   * @bodyParam {string} password required
+   *
    * @method signup
    *
    * @param  {Object} request
@@ -40,6 +46,14 @@ class UserController {
 
   /**
    * Handles user authentication
+   *
+   * @unauthenticated
+   * @bodyParam {string} email required
+   * @bodyParam {string} password required
+   * @response 200 {
+   *    "status": "success",
+   *    "data": "YOUR_TOKEN"
+   *  }
    *
    * @method login
    *
